@@ -26,4 +26,31 @@ export const rutinas = [
     tiempoMedio:  45,
     color: '#FFBEBA'
   },
+  {
+    id: 3,
+    titulo: 'Piernas',
+    vecesSemana:0,
+    ejercicios: 5,
+    seriesMedias: 4,
+    tiempoMedio:  45,
+    color: '#FFBEBA'
+  },
+  {
+    id: 4,
+    titulo: 'Piernas',
+    vecesSemana:0,
+    ejercicios: 5,
+    seriesMedias: 4,
+    tiempoMedio:  45,
+    color: '#FFBEBA'
+  },
+  {
+    id: 5,
+    titulo: 'Piernas',
+    vecesSemana:0,
+    ejercicios: 5,
+    seriesMedias: 4,
+    tiempoMedio:  45,
+    color: '#FFBEBA'
+  },
 ]

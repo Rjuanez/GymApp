@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Dimensions, ScrollView } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, Dimensions, ScrollView, FlatList } from 'react-native'
+import React, {} from 'react'
 import BackgroundPoly from '../components/BackgroundPoly'
 import colors from '../components/colors'
 import RoutineListItem from '../components/RoutineListItem'
@@ -7,7 +7,7 @@ import { rutinas } from '../../mocks/SampleRoutines'
 import Animated, { useSharedValue, withTiming, useAnimatedStyle, withSpring  } from 'react-native-reanimated'
 
 const HomeScreen = ({ navigation }) => {
-  
+  const viewableItems = useSharedValue([]) 
   
 
 
@@ -22,13 +22,28 @@ const HomeScreen = ({ navigation }) => {
       </View>
       <View style={styles.bottomContainer}>
         <Text style={styles.routineMainText}>My routines</Text>
-        <ScrollView style={styles.scrollContainer} >
-          {
-            rutinas.map((item) => (
-              <RoutineListItem key={item.id} navigation={navigation} item={item} onPress={() => navigation.push('Detail', {item})}/>
-            ))
-          }
-        </ScrollView>
+        <FlatList 
+        showsVerticalScrollIndicator={false}
+        snapToOffsets={rutinas.map((x, i) => (i*100))}
+        snapToInterval={100}
+        viewabilityConfig={{
+          waitForInteraction: false,
+          viewAreaCoveragePercentThreshold: 40
+        }}
+          style={styles.scrollContainer} 
+          data={rutinas}
+          contentContainerStyle={{paddingTop: 20, paddingBottom: 80}}
+          renderItem= {({item}) => (
+              <RoutineListItem navigation={navigation} item={item} 
+              onPress={() => navigation.push('Detail', {item})}
+              viewableItems={viewableItems}
+              />
+            )}
+            keyExtractor={item => item.id}
+            onViewableItemsChanged={({viewableItems: vItems}) => {
+              viewableItems.value = vItems;
+            }}
+        />
       </View>
     </View>
   )
@@ -64,7 +79,6 @@ const styles = StyleSheet.create({
     marginLeft: Width*0.06
   },
   scrollContainer: {
-    width: '100%',
-    paddingTop: 20
+    width: '100%',  
   }
 })

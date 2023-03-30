@@ -1,12 +1,29 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View, TouchableWithoutFeedback } from 'react-native'
 import React from 'react'
 import colors from './colors'
 import RoutineItemPoly from '../components/RoutineItemPoly'
+import Animated, { useSharedValue, withTiming, useAnimatedStyle, withDelay  } from 'react-native-reanimated'
 
-const RoutineListItem = ({item, onPress, navigation}) => {
+const RoutineListItem = ({item, onPress, viewableItems, navigation}) => {
+  const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
+  const rStyle = useAnimatedStyle(()=> {
+    const isVisible = Boolean( 
+      viewableItems.value
+      .filter((item)=>item.isViewable)
+      .find((viewableItems)=> viewableItems.item.id === item.id)
+      );
+    return {
+      opacity: withTiming(isVisible ? 1 : 0),
+      transform: [{
+        scale: withTiming(isVisible ? 1 : 0.6)
+      }]
+    }
+  })
+
   return (
-    <TouchableOpacity 
-    style={styles.container}
+    <Animated.View style= {rStyle}>
+    <TouchableOpacity
+    style={[styles.container]}
     onPress= {onPress}
     >
       <View style={styles.background}><RoutineItemPoly color={item.color}/></View>
@@ -24,6 +41,7 @@ const RoutineListItem = ({item, onPress, navigation}) => {
       </View>
 
     </TouchableOpacity>
+    </Animated.View>
   )
 }
 

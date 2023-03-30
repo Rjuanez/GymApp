@@ -3,13 +3,26 @@ import React, {useEffect} from 'react'
 import BackgroundPoly from '../components/BackgroundPoly'
 import colors from '../components/colors'
 import Animated, { useSharedValue, withTiming, useAnimatedStyle, withDelay  } from 'react-native-reanimated'
+import { Audio } from 'expo-av'
 
 const DetailScreen = ({route, navigation}) => {
   
 
+  async function playSound() {
+    const sound = new Audio.Sound();
+    try {
+      await sound.loadAsync(require('../../assets/audio/hello.mp3'), {shouldPlay: true});
+      await sound.setPositionAsync(0);
+      await sound.playAsync();
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const progress = useSharedValue(20);
 
   useEffect(() => {
+    playSound();
     progress.value = withDelay(300, withTiming(40, {duration: 1000})); 
   }, [])
 

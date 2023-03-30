@@ -1,14 +1,17 @@
 import { StyleSheet, Text, View, Dimensions, ScrollView, FlatList } from 'react-native'
-import React, {} from 'react'
+import React, { useEffect } from 'react'
 import BackgroundPoly from '../components/BackgroundPoly'
 import colors from '../components/colors'
 import RoutineListItem from '../components/RoutineListItem'
 import { rutinas } from '../../mocks/SampleRoutines'
 import Animated, { useSharedValue, withTiming, useAnimatedStyle, withSpring  } from 'react-native-reanimated'
+import { Audio } from 'expo-av'
 
 const HomeScreen = ({ navigation }) => {
   const viewableItems = useSharedValue([]) 
-  
+
+
+ 
 
 
   return (

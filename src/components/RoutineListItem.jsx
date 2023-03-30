@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View, TouchableWithoutFeedback } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native'
 import React from 'react'
 import colors from './colors'
 import RoutineItemPoly from '../components/RoutineItemPoly'
@@ -26,7 +26,10 @@ const RoutineListItem = ({item, onPress, viewableItems, navigation}) => {
     style={[styles.container]}
     onPress= {onPress}
     >
+      <View style= {styles.backContainer}>
       <View style={styles.background}><RoutineItemPoly color={item.color}/></View>
+      </View>
+      
       <View style={styles.mainTexts}>
       <Text style={styles.titleText}>{item.titulo}</Text>
         <Text style={styles.subText}>{`${item.ejercicios} ejercicios de ${item.seriesMedias} series aprox.`}</Text>
@@ -46,12 +49,12 @@ const RoutineListItem = ({item, onPress, viewableItems, navigation}) => {
 }
 
 export default RoutineListItem
-
+const Width = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row', 
-    width: '85%',
+    width: Width*0.85,
     height: 80,
     borderRadius: 15, 
     marginVertical: 12,
@@ -59,9 +62,18 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     padding: 20
   },
-  background: {
+  backContainer: {
     position: 'absolute',
-    left: 2
+    width: Width*0.85,
+    height: 80,
+    marginLeft: 0,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  background: {
+   
+    
   },
   mainTexts: {
     display: 'flex',

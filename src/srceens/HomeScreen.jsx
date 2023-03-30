@@ -24,15 +24,14 @@ const HomeScreen = ({ navigation }) => {
         <Text style={styles.routineMainText}>My routines</Text>
         <FlatList 
         showsVerticalScrollIndicator={false}
-        snapToOffsets={rutinas.map((x, i) => (i*100))}
-        snapToInterval={100}
+        snapToInterval={104}
         viewabilityConfig={{
           waitForInteraction: false,
           viewAreaCoveragePercentThreshold: 40
         }}
           style={styles.scrollContainer} 
           data={rutinas}
-          contentContainerStyle={{paddingTop: 20, paddingBottom: 80}}
+          contentContainerStyle={{paddingTop: 20, paddingBottom: 104}}
           renderItem= {({item}) => (
               <RoutineListItem navigation={navigation} item={item} 
               onPress={() => navigation.push('Detail', {item})}
@@ -52,6 +51,7 @@ const HomeScreen = ({ navigation }) => {
 export default HomeScreen
 const backgroundCol = colors.background;
 const Width= Dimensions.get('window').width;
+const Height= Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -80,5 +80,6 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     width: '100%',  
+     marginBottom: Height*0.02
   }
 })
